@@ -106,10 +106,10 @@ class JTAGDebugVC707Overlay(val shell: VC707Shell, val name: String, params: JTA
     shell.sdc.addClock("JTCK", IOPin(io.jtag_TCK), 10)
     shell.sdc.addGroup(clocks = Seq("JTCK"))
     shell.xdc.clockDedicatedRouteFalse(IOPin(io.jtag_TCK))
-    val packagePinsWithPackageIOs = Seq(("R32", IOPin(io.jtag_TCK)),
-                                        ("W36", IOPin(io.jtag_TMS)),
-                                        ("W37", IOPin(io.jtag_TDI)),
-                                        ("V40", IOPin(io.jtag_TDO)))
+    val packagePinsWithPackageIOs = Seq(("BB23", IOPin(io.jtag_TCK)),
+                                        ("BA21", IOPin(io.jtag_TMS)),
+                                        ("BB21", IOPin(io.jtag_TDI)),
+                                        ("BB24", IOPin(io.jtag_TDO)))
 
     packagePinsWithPackageIOs foreach { case (pin, io) => {
       shell.xdc.addPackagePin(io, pin)
@@ -210,7 +210,7 @@ class VC707Shell()(implicit p: Parameters) extends Series7Shell
   val switch    = Overlay(SwitchOverlayKey)    (new SwitchVC707Overlay  (_, _, _))
   val chiplink  = Overlay(ChipLinkOverlayKey)  (new ChipLinkVC707Overlay(_, _, _))
   val ddr       = Overlay(DDROverlayKey)       (new DDRVC707Overlay     (_, _, _))
-  val pcie      = Overlay(PCIeOverlayKey)      (new PCIeVC707Overlay    (_, _, _))
+//val pcie      = Overlay(PCIeOverlayKey)      (new PCIeVC707Overlay    (_, _, _))
   val uart      = Overlay(UARTOverlayKey)      (new UARTVC707Overlay    (_, _, _))
   val sdio      = Overlay(SDIOOverlayKey)      (new SDIOVC707Overlay    (_, _, _))
   val jtag      = Overlay(JTAGDebugOverlayKey)      (new JTAGDebugVC707Overlay    (_, _, _))
